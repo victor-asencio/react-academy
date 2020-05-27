@@ -63,10 +63,8 @@ class FlipCard extends React.Component {
       return (
         <div className="card-container">
           <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
-            <Card color="card-back back-icon-hidden" onClick={this.handleClick}>
-              <i className={`fas ${this.props.icon}`}></i>
+            <Card color="card-back" onClick={this.handleClick}>
             </Card>
-        
             <Card color="card-front" onClick={this.handleClick}>
               <i className={`fas ${this.props.icon}`}></i>
             </Card>

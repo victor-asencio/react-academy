@@ -8,7 +8,6 @@ export let icons = [
     "fa-band-aid",
     "fa-bicycle",
     "fa-bomb",
-    "fa-bluetooth-b",
     "fa-bug",
     "fa-cat",
     "fa-child",
