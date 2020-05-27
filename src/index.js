@@ -8,6 +8,7 @@ import './style/reset.css';
 import './style/index.css';
 
 export default function App() {
+  console.log("render index")
     return (
         <div className="main">
           <Header/>

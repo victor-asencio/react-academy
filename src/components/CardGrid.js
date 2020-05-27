@@ -3,7 +3,7 @@ import FlipCard from './FlipCard.js'
 import { icons } from '../icons/icons.js'
 
 class CardGrid extends Component {
-    
+
     state;
     cards;
 
@@ -22,8 +22,32 @@ class CardGrid extends Component {
         return cards;
     }
 
-    handleCardEvent(e){
-        console.log()
+    /**
+     * 
+     * @param { action: String, id } card 
+     */
+    handleCardEvent(card){
+        if(!this.state.activeCard){
+            this.setState({
+                activeCard : card
+            })
+        }else{
+            if(this.state.activeCard.id === card.id){
+                this.state.activeCard.nextAction("resolved");
+                card.nextAction("resolved");
+                this.setState({
+                    activeCard : null
+                })
+                console.log("Coincidencia")
+            }else {
+                this.state.activeCard.nextAction("notresolved");
+                card.nextAction("notresolved");
+                this.setState({
+                    activeCard : null
+                })
+            }
+        }
+        //return card.nextAction("resolvd");
     }
 
     constructor(props){
@@ -33,11 +57,12 @@ class CardGrid extends Component {
     }
     
     render() {
+        console.log("render card grid")
         return (
             <div className='card-grid'>
                 {
                     this.cards.map((elem, i)=>{
-                        return <FlipCard key={i} icon={elem.icon} cardgridid={i} id={elem.id} handleCardEvent={this.handleCardEvent.bind(this)}/>
+                        return <FlipCard key={i} icon={elem.icon} id={elem.id} handleCardEvent={this.handleCardEvent.bind(this)}/>
                     })
                 }
             </div>
