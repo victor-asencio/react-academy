@@ -1,10 +1,17 @@
 import React from "react";
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
+import Header from './components/Header.js';
+import CardGrid from './components/CardGrid.js';
+
+
+import './style/reset.css';
+import './style/index.css';
 
 export default function App() {
     return (
-        <div>
-            <h1 style={{color: 'red', fontWeight: 700}}>this is a header!</h1>
+        <div className="main">
+          <Header/>
+          <CardGrid/>
         </div>
     )
 }
