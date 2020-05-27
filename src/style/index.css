@@ -17,10 +17,20 @@ body{
 }
 
 .main header {
+    padding: 40px 30% 0px;
+    overflow: hidden;
+}
+
+.main header .title{
     font-family: 'Indie Flower', Arial, Helvetica, sans-serif;
     font-size: 40px;
+    float: left;
+    padding-left: 10%;
+}
+
+.main header .board{
+    float: right;
     text-align: center;
-    padding: 40px 0px;
 }
 
 .main .card-grid {
@@ -53,4 +63,17 @@ body{
 .card-front {
     background-color: var(--card-front);
     color: var(--background);
+}
+
+.main header .board .reset-button{
+    margin: 10px 0px; 
+}
+
+.board .reset-button button{
+    border: none;
+    background-color: var(--card-front);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 700;
+    color: var(--background) 
 }

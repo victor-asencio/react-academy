@@ -14,6 +14,16 @@ class FlipCard extends React.Component {
       this.handleClick = this.handleClick.bind(this);
     }
    
+    resetState(){
+      //console.log("icon ",this.props.icon)
+      this.setState({
+        isFlipped: false,
+        resolved: false,
+        lockClick: false
+      })
+      //console.log("reset state: ", this.state)
+    }
+
     /**
      * Esta acción se llama luego de la lógica en CardGrid
      * Se llama cada vez que se clickea una card
@@ -44,7 +54,7 @@ class FlipCard extends React.Component {
 
       let props = this.props,
           id = props.id;
-      console.log("lock click: ",this.state.lockClick)
+      //console.log("lock click: ",this.state.lockClick)
           
       if(!this.state.resolved && !this.state.isFlipped ){
         this.setState(prevState => ({ 
@@ -59,7 +69,7 @@ class FlipCard extends React.Component {
     }
    
     render() {
-      console.log("render flip card")
+      //console.log("update flip card", this.state)
       return (
         <div className="card-container">
           <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
