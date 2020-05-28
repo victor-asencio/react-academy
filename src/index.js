@@ -38,7 +38,8 @@ export default class  App extends React.Component {
     this.refs.reset.resetState();
     this.setState({
       intentos: 0,
-      aciertos: 0
+      aciertos: 0,
+      activeCard: null
     })
   }
 
