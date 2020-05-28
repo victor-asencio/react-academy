@@ -2,86 +2,24 @@ import React from 'react';
 import ReactCardFlip from 'react-card-flip';
 import Card from './Card.js';
 
-class FlipCard extends React.Component {
-    
-    constructor(props) {
-      super(props);
-      this.state = {
-        isFlipped: false,
-        resolved: false,
-        lockClick: false
-      };
-      this.handleClick = this.handleClick.bind(this);
-    }
+function FlipCard(props){
+
    
-    resetState(){
-      //console.log("icon ",this.props.icon)
-      this.setState({
-        isFlipped: false,
-        resolved: false,
-        lockClick: false
-      })
-      //console.log("reset state: ", this.state)
-    }
+  let { card, handleClick, index } = props;
+  let { icon, isFlipped } = card;
 
-    /**
-     * Esta acción se llama luego de la lógica en CardGrid
-     * Se llama cada vez que se clickea una card
-     * Eso me dice si la carta esta resuelta y tengo que bloquearla o flipearla de vuelta
-     * @param {String} action 
-     */
-    nextAction(action){
-      if(action==="resolved"){
-        this.setState({
-          resolved : true
-        }) 
-      } else {
-        this.setState({
-          lockClick : true
-        })
-        setTimeout(()=>{
-          this.setState({
-            isFlipped : !this.state.isFlipped,
-            lockClick : false
-          })
-        }, 1000)
-        
-      }
-    }
+  return (
+    <div className='card-container'>
+      <ReactCardFlip isFlipped={isFlipped} flipDirection='horizontal'>
+        <Card color='card-back' index={index} onClick={handleClick}>
+          <i className='fas fa-question-circle'></i>
+        </Card>
+        <Card color='card-front' index={index} onClick={handleClick}>
+          <i className={`fas ${icon}`}></i>
+        </Card>
+      </ReactCardFlip>
+    </div>
+  )
+}
 
-    handleClick(e) {
-      e.preventDefault();
-
-      let props = this.props,
-          id = props.id;
-      //console.log("lock click: ",this.state.lockClick)
-          
-      if(!this.state.resolved && !this.state.isFlipped ){
-        this.setState(prevState => ({ 
-          isFlipped: !prevState.isFlipped 
-        }));
-        
-        this.props.handleCardEvent({
-          nextAction : this.nextAction.bind(this),
-          id
-        });
-      }
-    }
-   
-    render() {
-      //console.log("update flip card", this.state)
-      return (
-        <div className="card-container">
-          <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal">
-            <Card color="card-back" onClick={this.handleClick}>
-            </Card>
-            <Card color="card-front" onClick={this.handleClick}>
-              <i className={`fas ${this.props.icon}`}></i>
-            </Card>
-          </ReactCardFlip>
-        </div>
-      )
-    }
-  }
-
-  export default FlipCard;
+export default FlipCard;

@@ -1,7 +1,8 @@
-import React from "react";
+import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './components/Header.js';
-import CardGrid from './components/CardGrid.js';
+//import ModalName from './components/ModalName.js';
+import FlipCard from './components/FlipCard.js'
 
 import { icons } from './icons/icons.js'
 
@@ -13,34 +14,100 @@ export default class  App extends React.Component {
   
   cards;
   state;
+  aciertos;
+  lockClick;
 
   constructor(props){
     super(props);
     this.state = {
       intentos: 0,
-      aciertos: 0
+      previousCard: null,
     }
+    this.aciertos = 0;
+    this.lockClick = false;
     this.cards = this.getGridElements();
   }
 
 
   render(){
     return (
-      <div className="main">
+      <div className='main'>
+        {/*<ModalName/>*/}
+        {/*<CardGrid ref='reset' cards={this.cards} handleCardEvent={this.handleCardEvent.bind(this)}/> */ }
         <Header intentos={this.state.intentos} resetHandler={this.resetGame.bind(this)}/>
-        <CardGrid ref="reset" cards={this.cards} handleCardEvent={this.handleCardEvent.bind(this)}/>
+        <div className='card-grid'>
+          {
+            this.cards.map((elem, i)=>{
+                return <FlipCard key={i} index={i} handleClick={this.handleClick.bind(this)} card={elem} handleCardEvent={this.handleCardEvent}/>
+            })
+          }
+        </div>
       </div>
     )
   }
 
   resetGame(){
     this.cards = this.getGridElements();
-    this.refs.reset.resetState();
     this.setState({
       intentos: 0,
-      aciertos: 0,
-      activeCard: null
+      previousCard: null,
     })
+  }
+
+  handleClick(cardId){
+
+    console.log('lockClick: ', this.lockClick)
+
+    if(!this.lockClick){
+
+      if(!this.lockClick && !this.state.previousCard){
+        console.log('entro');
+        this.cards[cardId].isFlipped = true;
+        this.setState({
+          previousCard: this.cards[cardId],
+        })
+      }else{
+        this.lockClick = true;
+        let previousCard = this.state.previousCard;
+        let secondCard = this.cards[cardId];
+        
+        this.setState( prevState => {
+          return{
+            intentos : prevState.intentos+1,
+          }
+        })
+        
+        secondCard.isFlipped = true;
+        
+        if(previousCard.id === secondCard.id){
+          console.log("coincidencia");
+
+          this.lockClick = false;
+          this.setState({
+            previousCard: null,
+          });
+          this.aciertos++;
+
+          if(this.aciertos===10){
+            setTimeout(()=>{
+              alert(`Ganaste en ${this.state.intentos} intentos!`);
+              this.resetGame();
+            }, 1000);
+          }
+
+        }else{
+          setTimeout(()=>{
+            secondCard.isFlipped = false;
+            previousCard.isFlipped = false;
+            this.lockClick = false;
+            this.setState({
+              previousCard: null,
+            });
+          }, 1000)
+        }
+        
+      }
+    }
   }
 
   getGridElements(){
@@ -51,12 +118,16 @@ export default class  App extends React.Component {
 
     for(let i = 0; i<10; i++){
         cards.push({
-            id : i,
-            icon : icons[i]
+          id : i,
+          icon : icons[i],
+          isFlipped: false,
+          resolved: false,
         });
         cards.push({
-            id : i,
-            icon : icons[i]
+          id : i,
+          icon : icons[i],
+          isFlipped: false,
+          resolved: false,
         });
     }
 
@@ -77,44 +148,8 @@ export default class  App extends React.Component {
     
     return cards;
   }
-
-  handleCardEvent(card){
-    if(!this.state.activeCard){
-        this.setState({
-            activeCard : card
-        })
-    }else{
-        let intentos = this.state.intentos;
-        this.setState({
-          intentos: ++intentos
-        })
-        if(this.state.activeCard.id === card.id){
-            this.state.activeCard.nextAction("resolved");
-            card.nextAction("resolved");
-
-            console.log('aciertos ',this.state.aciertos);
-            this.setState((prevState) => {
-              return {
-                activeCard : null,
-                aciertos: ++prevState.aciertos
-              } 
-            })
-            console.log('aciertos ',this.state.aciertos);
-            if(this.state.aciertos===9){
-              alert(`Ganaste en ${this.state.intentos}!`);
-              this.resetGame();
-            }
-        }else {
-            this.state.activeCard.nextAction("notresolved");
-            card.nextAction("notresolved");
-            this.setState({
-                activeCard : null
-            })
-        }
-    }
-  }
     
 }
 
 
-ReactDOM.render(<App/>,document.querySelector("#root"));
+ReactDOM.render(<App/>,document.querySelector('#root'));

@@ -6,6 +6,7 @@
     --background : #262626;
     --card-back : #fc6d2a;
     --card-front : #f0e5d3;
+    --question-icon : rgba(240,229,211,0.5);
     --other : #f6b251;
 }
 
@@ -58,6 +59,7 @@ body{
 
 .card-back {
     background-color: var(--card-back);
+    color: var(--question-icon);
 }
 
 .card-front {
@@ -76,4 +78,25 @@ body{
     border-radius: 5px;
     font-weight: 700;
     color: var(--background) 
+}
+
+.modal-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    padding-top: 20vh;
+    background-color: rgba(0.5, 0.5, 0.5, 0.2);
+}
+
+.modal-container .modal {
+    width: 30vw;
+    background-color: red;
+    margin: 0 auto;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.modal-container .modal p {
+    font-size: 20px;
 }
