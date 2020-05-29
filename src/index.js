@@ -171,7 +171,7 @@ export default class  App extends React.Component {
           });
           this.aciertos++;
 
-          if( this.aciertos === 1 ){
+          if( this.aciertos === 10 ){
             setTimeout(()=>{
               this.posiciones.push({
                 name: userName,
