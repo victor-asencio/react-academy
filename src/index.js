@@ -18,6 +18,7 @@ export default class  App extends React.Component {
   aciertos;
   lockClick;
   showModalName;
+  posiciones;
 
   constructor(props){
     super(props);
@@ -27,20 +28,26 @@ export default class  App extends React.Component {
       userName: null,
       showModalName: true,
     }
+    this.posiciones = [];
     this.aciertos = 0;
     this.lockClick = false;
     this.cards = this.getGridElements();
   }
 
   handleSubmit(e){
+    
     e.preventDefault();
-    let input = document.querySelector('#name-form .name-input');
 
+    let inputText = document.querySelector('#name-form .name-input').value;
+
+    if( this.state.userName ){
+      this.resetGame();
+    }
     this.setState({
       showModalName: false,
-      userName: input.value || 'player',
+      userName: inputText || 'player',
     })
-    console.log(input.value);
+    console.log(inputText);
 
   }
 
@@ -56,12 +63,24 @@ export default class  App extends React.Component {
     return !!this.state.userName;
   }
 
+  promptModal(){
+    this.setState({
+      showModalName: true,
+    })
+  }
+
+  resetPositions(){
+    console.log("hola")
+    this.posiciones = [];
+    this.setState( prevState => prevState )
+  }
+
   render(){
 
-    let {showModalName, userName, intentos } = this.state;
+    let { showModalName, intentos, userName } = this.state;
 
     return (
-      <div className='main'>
+      <>
         { showModalName && 
           <Modal onCloseModal={this.closeModal.bind(this)} showClose={this.showCloseIcon()}>
             <div className='name-modal'>
@@ -76,20 +95,45 @@ export default class  App extends React.Component {
             </div>
           </Modal>
         }
-        <Header intentos={intentos} resetHandler={this.resetGame.bind(this)}/>
-        <div className='card-grid'>
-          {
-            this.cards.map((elem, i)=>{
-                return <FlipCard key={i} index={i} handleClick={this.handleClick.bind(this)} card={elem} handleCardEvent={this.handleCardEvent}/>
-            })
-          }
+        <Header intentos={intentos} resetPositions={this.resetPositions.bind(this)} promptModal={this.promptModal.bind(this)} resetHandler={this.resetGame.bind(this)}/>
+        <div className='main'>
+          <div className='card-grid'>
+            {
+              this.cards.map((elem, i)=>{
+                  return <FlipCard key={i} index={i} handleClick={this.handleClick.bind(this)} card={elem} handleCardEvent={this.handleCardEvent}/>
+              })
+            }
+          </div>
+          <div className='dashboard'>
+            <div className='active-player'>
+              <h3>Jugador Actual</h3>
+              <hr/>
+              <p>Nombre: {userName}</p>
+              <p>Intentos: {intentos}</p>
+            </div>
+            <div className='positions'>
+              <h3>Posiciones</h3>
+              <hr/>
+              <div className='players-box'>
+              {
+                this.posiciones &&
+                this.posiciones.map((elem, i)=>{
+                  return (
+                    <p key={i}>{i+1}. {elem.name} <span className='score-right'>{elem.intentos}</span></p>
+                  )
+                })
+              }
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </>
     )
   }
 
   resetGame(){
     this.cards = this.getGridElements();
+    this.aciertos = 0;
     this.setState({
       intentos: 0,
       previousCard: null,
@@ -98,16 +142,17 @@ export default class  App extends React.Component {
 
   handleClick(cardId){
 
+    let { userName, intentos, previousCard } = this.state;
+
     if( !this.lockClick ){
 
-      if( !this.lockClick && !this.state.previousCard ){
+      if( !this.lockClick && !previousCard ){
         this.cards[cardId].isFlipped = true;
         this.setState({
           previousCard: this.cards[cardId],
         })
       }else{
         this.lockClick = true;
-        let previousCard = this.state.previousCard;
         let secondCard = this.cards[cardId];
         
         this.setState( prevState => {
@@ -126,9 +171,13 @@ export default class  App extends React.Component {
           });
           this.aciertos++;
 
-          if( this.aciertos === 10 ){
+          if( this.aciertos === 1 ){
             setTimeout(()=>{
-              alert(`Ganaste en ${this.state.intentos} intentos!`);
+              this.posiciones.push({
+                name: userName,
+                intentos: intentos+1,
+              })
+              alert(`Ganaste en ${intentos+1} intentos!`);
               this.resetGame();
             }, 1000);
           }

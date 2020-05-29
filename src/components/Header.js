@@ -2,18 +2,17 @@ import React from 'react'
 
 export default function Header(props) {
 
-    let { intentos, resetHandler } = props;
+    let { resetPositions, resetHandler, promptModal } = props;
 
     return (
         <header>
             <div className="title">
                 Memory Game
             </div>
-            <div className="board">
-                Intentos: {intentos}
-                <div className="button">
-                    <button className="reset" onClick={resetHandler}>Reset Game</button>
-                </div>
+            <div className="game-controls">
+                <button onClick={resetPositions}>Limpiar Posiciones</button>
+                <button onClick={resetHandler}>Juego Nuevo</button>
+                <button onClick={promptModal}>Cambiar Jugador</button>
             </div>
         </header>
     )

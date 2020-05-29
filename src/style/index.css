@@ -17,27 +17,38 @@ body{
     color: white;
 }
 
-.main header {
-    padding: 40px 30% 0px;
+.main{
+    display: flex;
+    justify-content: center;
+    margin: 50px 100px 0;
+}
+
+header {
+    padding: 40px 20% 0px;
     overflow: hidden;
 }
 
-.main header .title{
+
+header .title{
     font-family: 'Indie Flower', Arial, Helvetica, sans-serif;
     font-size: 40px;
     float: left;
-    padding-left: 10%;
 }
 
-.main header .board{
+header .game-controls{
     float: right;
-    text-align: center;
+}
+
+header .game-controls button{
+    margin: 0px 20px;
+    border: none;
+    color: white;
+    background-color: transparent;
 }
 
 .main .card-grid {
-    width: 50%;
+    width: 60%;
     padding: 10px;
-    margin: 2px auto;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -57,6 +68,37 @@ body{
     border-radius: 8px;
 }
 
+.main .dashboard {
+    margin: 30px;
+    width: 20%;
+    text-align: center;
+}
+
+.dashboard h3 {
+    margin: 10px 0;
+}
+.dashboard p {
+    line-height: 30px;
+}
+
+.dashboard .positions {
+    margin-top: 40px;
+}
+
+.dashboard .positions .players-box {
+    padding: 0 20px;
+    text-align: left;
+}
+
+.players-box .name-left {
+    float: left;
+}
+
+.players-box .score-right {
+    float: right;
+}
+
+
 .card-back {
     background-color: var(--card-back);
     color: var(--question-icon);
@@ -65,10 +107,6 @@ body{
 .card-front {
     background-color: var(--card-front);
     color: var(--background);
-}
-
-.main header .board .button{
-    margin: 10px 0px; 
 }
 
 .button button, .button input[type='submit']{
@@ -87,6 +125,10 @@ body{
 .name-modal .button input[type='submit']{
     background-color: var(--background);
     color: white;
+}
+
+.name-modal .name-title{
+    color: var(--background);
 }
 
 .modal-container {
