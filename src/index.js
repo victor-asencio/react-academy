@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './components/Header.js';
-//import ModalName from './components/ModalName.js';
+import Modal from './components/Modal.js';
 import FlipCard from './components/FlipCard.js'
+import cerebro from './images/cerebro-icon.png'
 
 import { icons } from './icons/icons.js'
 
@@ -16,25 +17,66 @@ export default class  App extends React.Component {
   state;
   aciertos;
   lockClick;
+  showModalName;
 
   constructor(props){
     super(props);
     this.state = {
       intentos: 0,
       previousCard: null,
+      userName: null,
+      showModalName: true,
     }
     this.aciertos = 0;
     this.lockClick = false;
     this.cards = this.getGridElements();
   }
 
+  handleSubmit(e){
+    e.preventDefault();
+    let input = document.querySelector('#name-form .name-input');
+
+    this.setState({
+      showModalName: false,
+      userName: input.value || 'player',
+    })
+    console.log(input.value);
+
+  }
+
+  closeModal(){
+    if( this.state.userName ){
+      this.setState({
+        showModalName: false,
+      })
+    }
+  }
+
+  showCloseIcon(){
+    return !!this.state.userName;
+  }
 
   render(){
+
+    let {showModalName, userName, intentos } = this.state;
+
     return (
       <div className='main'>
-        {/*<ModalName/>*/}
-        {/*<CardGrid ref='reset' cards={this.cards} handleCardEvent={this.handleCardEvent.bind(this)}/> */ }
-        <Header intentos={this.state.intentos} resetHandler={this.resetGame.bind(this)}/>
+        { showModalName && 
+          <Modal onCloseModal={this.closeModal.bind(this)} showClose={this.showCloseIcon()}>
+            <div className='name-modal'>
+              <img src={cerebro} alt='icono'></img>
+              <form id='name-form' onSubmit={this.handleSubmit.bind(this)}>
+                <p className='name-title'>Nombre del Jugador:</p>
+                <input className='name-input' type='text' placeholder='Nombre...' required/>
+                <div className='button'>
+                  <input type='submit' value='Comenzar'/>
+                </div>
+              </form>
+            </div>
+          </Modal>
+        }
+        <Header intentos={intentos} resetHandler={this.resetGame.bind(this)}/>
         <div className='card-grid'>
           {
             this.cards.map((elem, i)=>{
@@ -56,12 +98,9 @@ export default class  App extends React.Component {
 
   handleClick(cardId){
 
-    console.log('lockClick: ', this.lockClick)
+    if( !this.lockClick ){
 
-    if(!this.lockClick){
-
-      if(!this.lockClick && !this.state.previousCard){
-        console.log('entro');
+      if( !this.lockClick && !this.state.previousCard ){
         this.cards[cardId].isFlipped = true;
         this.setState({
           previousCard: this.cards[cardId],
@@ -79,8 +118,7 @@ export default class  App extends React.Component {
         
         secondCard.isFlipped = true;
         
-        if(previousCard.id === secondCard.id){
-          console.log("coincidencia");
+        if( previousCard.id === secondCard.id ){
 
           this.lockClick = false;
           this.setState({
@@ -88,7 +126,7 @@ export default class  App extends React.Component {
           });
           this.aciertos++;
 
-          if(this.aciertos===10){
+          if( this.aciertos === 10 ){
             setTimeout(()=>{
               alert(`Ganaste en ${this.state.intentos} intentos!`);
               this.resetGame();
@@ -132,14 +170,14 @@ export default class  App extends React.Component {
     }
 
     /* Shuffle array two times */
-    for( let i = cards.length - 1; i>0; i--){
+    for(let i = cards.length - 1; i>0; i--){
       newPos = Math.floor(Math.random()*(i+1));
       temp = cards[i];
       cards[i] = cards[newPos];
       cards[newPos] = temp;
     }
 
-    for( let i = cards.length - 1; i>0; i--){
+    for(let i = cards.length - 1; i>0; i--){
       newPos = Math.floor(Math.random()*(i+1));
       temp = cards[i];
       cards[i] = cards[newPos];

@@ -11,7 +11,7 @@ export default function Header(props) {
             </div>
             <div className="board">
                 Intentos: {intentos}
-                <div className="reset-button">
+                <div className="button">
                     <button className="reset" onClick={resetHandler}>Reset Game</button>
                 </div>
             </div>
