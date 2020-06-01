@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+
+/* Variables */
+$background: #262626;
+$card-back: #fc6d2a;
+$card-front: #f0e5d3;
+$question-icon: rgba(240,229,211,0.5);
+$other: #f6b251;
+
+body{
+  font-family: 'Lato', Arial, Helvetica, sans-serif;
+  background-color: $background;
+  color: white;
+}
+
+.modal-container{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  padding-top: 20vh;
+  background-color: rgba(0.5, 0.5, 0.5, 0.2);
+
+  &__modal{
+    width: 30vw;
+    background-color: $card-front;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+  }
+
+  &__close-icon-wrapper{
+    text-align: right;
+  }
+
+  &__close-icon{
+    margin: 10px;
+    padding: 10px;
+    color: $background;
+
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  &__button{
+    padding: 30px 0;
+  }
+
+  &__name-title{
+    color: $background;
+    margin: 20px 0;
+    font-size: 20px;
+  }
+
+  &__name-input{
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+  }
+
+  &__button-submit{
+    background-color: $background;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 700;
+  }
+}
+
+.header{
+  padding: 40px 20% 0;
+  overflow: hidden;
+
+  &__title{
+    font-family: 'Indie Flower', Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    float: left;
+  }
+
+  &__game-controls{
+    float: right;
+  }
+
+  &__button{
+    margin: 0px 20px;
+    border: none;
+    color: white;
+    background-color: transparent;
+  }
+}
+
+.main{
+  display: flex;
+  justify-content: center;
+  margin: 50px 100px 0;
+
+  &__card-grid{
+    width: 60%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__card-container{
+    padding: 20px;
+  }
+
+  &__card{
+    width: 150px;
+    height: 150px;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+
+    &--card-back{
+      background-color: $card-back;
+      color: $question-icon;
+    }
+
+    &--card-front{
+      background-color: $card-front;
+      color: $background;
+    }
+  }
+
+  &__dashboard{
+    margin: 30px;
+    width: 20%;
+    text-align: center;
+
+    & h3{
+      margin: 10px 0;
+    }
+
+    & p {
+      line-height: 30px;
+    }
+  }
+
+  &__positions{
+    margin-top: 40px;
+  }
+
+  &__players-box{
+    padding: 0 20px;
+    text-align: left;
+  }
+
+  &__score-right{
+    float: right;
+  }
+}

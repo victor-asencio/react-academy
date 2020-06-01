@@ -11,6 +11,7 @@
 }
 
 
+
 body{
     font-family: 'Lato', Arial, Helvetica, sans-serif;
     background-color: var(--background);
@@ -90,14 +91,9 @@ header .game-controls button{
     text-align: left;
 }
 
-.players-box .name-left {
-    float: left;
-}
-
 .players-box .score-right {
     float: right;
 }
-
 
 .card-back {
     background-color: var(--card-back);
@@ -166,7 +162,6 @@ header .game-controls button{
 .close-icon:hover{
     cursor: pointer;
 }
-
 .modal .name-modal .name-title{
     margin: 20px 0;
 }

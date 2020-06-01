@@ -12,7 +12,7 @@ export default class Card extends React.Component {
         let { children, color } = this.props;
 
         return (
-            <div onClick={this.cardClick} className={`card ${color}`}>
+            <div onClick={this.cardClick} className={`main__card main__card--${color}`}>
                 {children}
             </div>
         )

@@ -8,8 +8,8 @@ import cerebro from './images/cerebro-icon.png'
 import { icons } from './icons/icons.js'
 
 
-import './style/reset.css';
-import './style/index.css';
+import './style/reset.scss';
+import './style/index-sass.scss';
 
 export default class  App extends React.Component {
   
@@ -38,7 +38,7 @@ export default class  App extends React.Component {
     
     e.preventDefault();
 
-    let inputText = document.querySelector('#name-form .name-input').value;
+    let inputText = document.querySelector('.modal-container__name-input').value;
 
     if( this.state.userName ){
       this.resetGame();
@@ -70,7 +70,6 @@ export default class  App extends React.Component {
   }
 
   resetPositions(){
-    console.log("hola")
     this.posiciones = [];
     this.setState( prevState => prevState )
   }
@@ -83,13 +82,13 @@ export default class  App extends React.Component {
       <>
         { showModalName && 
           <Modal onCloseModal={this.closeModal.bind(this)} showClose={this.showCloseIcon()}>
-            <div className='name-modal'>
+            <div className='modal-container__name-modal'>
               <img src={cerebro} alt='icono'></img>
-              <form id='name-form' onSubmit={this.handleSubmit.bind(this)}>
-                <p className='name-title'>Nombre del Jugador:</p>
-                <input className='name-input' type='text' placeholder='Nombre...' required/>
-                <div className='button'>
-                  <input type='submit' value='Comenzar'/>
+              <form id='modal-container__name-form' onSubmit={this.handleSubmit.bind(this)}>
+                <p className='modal-container__name-title'>Nombre del Jugador:</p>
+                <input className='modal-container__name-input' type='text' placeholder='Nombre...' required/>
+                <div className='modal-container__button'>
+                  <input className='modal-container__button-submit' type='submit' value='Comenzar'/>
                 </div>
               </form>
             </div>
@@ -97,29 +96,29 @@ export default class  App extends React.Component {
         }
         <Header intentos={intentos} resetPositions={this.resetPositions.bind(this)} promptModal={this.promptModal.bind(this)} resetHandler={this.resetGame.bind(this)}/>
         <div className='main'>
-          <div className='card-grid'>
+          <div className='main__card-grid'>
             {
               this.cards.map((elem, i)=>{
                   return <FlipCard key={i} index={i} handleClick={this.handleClick.bind(this)} card={elem} handleCardEvent={this.handleCardEvent}/>
               })
             }
           </div>
-          <div className='dashboard'>
-            <div className='active-player'>
+          <div className='main__dashboard'>
+            <div className='main__active-player'>
               <h3>Jugador Actual</h3>
               <hr/>
               <p>Nombre: {userName}</p>
               <p>Intentos: {intentos}</p>
             </div>
-            <div className='positions'>
+            <div className='main__positions'>
               <h3>Posiciones</h3>
               <hr/>
-              <div className='players-box'>
+              <div className='main__players-box'>
               {
                 this.posiciones &&
                 this.posiciones.map((elem, i)=>{
                   return (
-                    <p key={i}>{i+1}. {elem.name} <span className='score-right'>{elem.intentos}</span></p>
+                    <p key={i}>{i+1}. {elem.name} <span className='main__score-right'>{elem.intentos}</span></p>
                   )
                 })
               }

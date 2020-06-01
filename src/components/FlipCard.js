@@ -9,7 +9,7 @@ function FlipCard(props){
   let { icon, isFlipped } = card;
 
   return (
-    <div className='card-container'>
+    <div className='main__card-container'>
       <ReactCardFlip isFlipped={isFlipped} flipDirection='horizontal'>
         <Card color='card-back' index={index} onClick={handleClick}>
           <i className='fas fa-question-circle'></i>
