@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './components/Header.js';
 import Modal from './components/Modal.js';
-import FlipCard from './components/FlipCard.js'
-import cerebro from './images/cerebro-icon.png'
+import FlipCard from './components/FlipCard.js';
+import mockapi from './api/mockapi.js';
+import cerebro from './images/cerebro-icon.png';
 
-import { icons } from './icons/icons.js'
+import { icons } from './icons/icons.js';
 
 
 import './style/reset.scss';
@@ -27,11 +28,26 @@ export default class  App extends React.Component {
       previousCard: null,
       userName: null,
       showModalName: true,
+      positionsFetched: false,
     }
     this.posiciones = [];
     this.aciertos = 0;
     this.lockClick = false;
     this.cards = this.getGridElements();
+  }
+
+  async getPlayers(){
+    let players = await mockapi.get('/positions/players')
+    
+    this.posiciones = players.data;
+    this.setState({
+      positionsFetched: true,
+    })
+
+  }
+
+  componentDidMount(){
+    this.getPlayers();
   }
 
   handleSubmit(e){
