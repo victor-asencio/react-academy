@@ -39,10 +39,12 @@ export default class  App extends React.Component {
   async getPlayers(){
     let players = await mockapi.get('/positions/players')
     
-    this.posiciones = players.data;
-    this.setState({
-      positionsFetched: true,
-    })
+    if(players.data.length > 0){
+      this.posiciones = players.data;
+      this.setState({
+        positionsFetched: true,
+      })
+    }
 
   }
 
