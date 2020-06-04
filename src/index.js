@@ -36,7 +36,7 @@ export default class  App extends React.Component {
     this.cards = this.getGridElements();
   }
 
-  async getPlayers(){
+  getPlayers = async () => {
     let players = await mockapi.get('/positions/players')
     
     if(players.data.length > 0){
@@ -48,11 +48,11 @@ export default class  App extends React.Component {
 
   }
 
-  componentDidMount(){
+  componentDidMount = () => {
     this.getPlayers();
   }
 
-  handleSubmit(e){
+  handleSubmit = e => {
     
     e.preventDefault();
 
@@ -65,11 +65,9 @@ export default class  App extends React.Component {
       showModalName: false,
       userName: inputText || 'player',
     })
-    console.log(inputText);
-
   }
 
-  closeModal(){
+  closeModal = () => {
     if( this.state.userName ){
       this.setState({
         showModalName: false,
@@ -77,17 +75,17 @@ export default class  App extends React.Component {
     }
   }
 
-  showCloseIcon(){
+  showCloseIcon = () => {
     return !!this.state.userName;
   }
 
-  promptModal(){
+  promptModal = () => {
     this.setState({
       showModalName: true,
     })
   }
 
-  resetPositions(){
+  resetPositions = () => {
     this.posiciones = [];
     this.setState( prevState => prevState )
   }
@@ -99,10 +97,10 @@ export default class  App extends React.Component {
     return (
       <>
         { showModalName && 
-          <Modal onCloseModal={this.closeModal.bind(this)} showClose={this.showCloseIcon()}>
+          <Modal onCloseModal={this.closeModal} showClose={this.showCloseIcon()}>
             <div className='modal-container__name-modal'>
               <img src={cerebro} alt='icono'></img>
-              <form id='modal-container__name-form' onSubmit={this.handleSubmit.bind(this)}>
+              <form id='modal-container__name-form' onSubmit={this.handleSubmit}>
                 <p className='modal-container__name-title'>Nombre del Jugador:</p>
                 <input className='modal-container__name-input' type='text' placeholder='Nombre...' required/>
                 <div className='modal-container__button'>
@@ -112,12 +110,12 @@ export default class  App extends React.Component {
             </div>
           </Modal>
         }
-        <Header intentos={intentos} resetPositions={this.resetPositions.bind(this)} promptModal={this.promptModal.bind(this)} resetHandler={this.resetGame.bind(this)}/>
+        <Header intentos={intentos} resetPositions={this.resetPositions} promptModal={this.promptModal} resetHandler={this.resetGame}/>
         <div className='main'>
           <div className='main__card-grid'>
             {
               this.cards.map((elem, i)=>{
-                  return <FlipCard key={i} index={i} handleClick={this.handleClick.bind(this)} card={elem} handleCardEvent={this.handleCardEvent}/>
+                  return <FlipCard key={i} index={i} handleClick={this.handleClick} card={elem} handleCardEvent={this.handleCardEvent}/>
               })
             }
           </div>
@@ -148,7 +146,7 @@ export default class  App extends React.Component {
     )
   }
 
-  resetGame(){
+  resetGame = () => {
     this.cards = this.getGridElements();
     this.aciertos = 0;
     this.setState({
@@ -157,7 +155,7 @@ export default class  App extends React.Component {
     })
   }
 
-  handleClick(cardId){
+  handleClick = cardId => {
 
     let { userName, intentos, previousCard } = this.state;
 
@@ -214,7 +212,7 @@ export default class  App extends React.Component {
     }
   }
 
-  getGridElements(){
+  getGridElements = () => {
     
     let cards = [],
         newPos,
