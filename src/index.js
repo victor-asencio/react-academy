@@ -1,13 +1,9 @@
-import React from "react";
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App.js';
 
-export default function App() {
-    return (
-        <div>
-            <h1 style={{color: 'red', fontWeight: 700}}>this is a header!</h1>
-        </div>
-    )
-}
+import './styles/reset.scss';
 
+ReactDOM.render(<App />, document.getElementById('root'));
 
-ReactDOM.render(<App/>,document.querySelector("#root"));
+ 

@@ -1,0 +1,21 @@
+@import './_vars.scss';
+@import './_fonts.scss';
+
+
+.video{
+  display: flex;
+  max-width: 600px;
+  padding: 10px;
+  cursor: pointer;
+
+  &__img{
+    max-width: 200px;
+  }
+
+  &__title{
+    color: $white;
+    margin: 20px 20px 0;
+    font-size: 15px;
+    font-family: 'Heebo', Arial, Helvetica, sans-serif;
+  }
+}

@@ -1,0 +1,21 @@
+@import './_fonts.scss';
+@import './_vars.scss';
+
+
+body{
+  font-family: 'Heebo', Arial, Helvetica, sans-serif !important; //TODO: fix this important, property overrided in reset.scss
+  background-color: $light-dark;
+}
+
+
+.layout{
+
+  width: 50%;
+  margin: 30px auto 0;
+  display: flex;
+
+  &--video{
+    width: 70%;
+  }
+
+}

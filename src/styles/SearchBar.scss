@@ -1,0 +1,43 @@
+
+$dark: #232323;
+$light-dark: #3F4045;
+$white: #fcfcfc;
+
+.header{
+
+  font-family: 'Heebo', Arial, Helvetica, sans-serif;
+  background-color: $dark;
+  
+  &__form{
+    max-width: 50%;
+    min-width: 600px;
+    margin: 0 auto;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__label-text{
+    color: $white;
+  }
+
+  &__input{
+    border-radius: 15px;
+    padding: 8px 20px;
+    margin: 0 40px;
+    border: none;
+    outline: none;
+    color: $white;
+    font-weight: 400;
+    background-color: $light-dark;
+    transition: background-color 0.5s;
+    flex-grow: 1;
+
+    &:focus{
+      background-color: $white;
+      color: $dark;
+    }
+  }
+
+}
